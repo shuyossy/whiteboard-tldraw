@@ -74,6 +74,17 @@ app.all('/*', async (req, reply) => {
   }
 })
 
+// Next.jsの静的ファイルやクライアントコードのルーティング
+app.all('/_next/*', async (req, reply) => {
+  try {
+    await handle(req.raw, reply.raw)
+    reply.sent = true
+  } catch (err) {
+    app.log.error(err)
+    reply.status(500).send('Internal Server Error')
+  }
+})
+
 /**
  * Next.jsの準備が整ったらデータベース接続を行い、サーバーを起動
  */
