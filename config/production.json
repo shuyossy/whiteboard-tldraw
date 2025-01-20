@@ -1,0 +1,6 @@
+{
+    "host": "localhost",
+    "node_env": "production",
+    "typeorm_synchronize": false
+  }
+  
