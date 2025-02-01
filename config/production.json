@@ -1,6 +1,5 @@
 {
-    "host": "localhost",
-    "node_env": "production",
+    "pg_host": "localhost",
     "typeorm_synchronize": false
   }
   

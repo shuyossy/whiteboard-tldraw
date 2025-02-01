@@ -8,12 +8,6 @@ import { folderRoutes } from '@/routes/folderRoutes'
 import { tldrawRoutes } from '@/routes/tldrawRoutes'
 import { AppDataSource } from '@/integration/data-source'
 
-/**
- * 環境変数を経由してNext.jsに値を渡す設定
- * - サーバーのURLとDraw.ioのURLを設定
- */
-process.env.NEXT_PUBLIC_SERVER_URL = "http://" + whiteboardConfig.get<string>('host') + ":" + whiteboardConfig.get<number>('port')
-process.env.NEXT_PUBLIC_DRAWIO_URL = whiteboardConfig.get<string>('drawio_url')
 
 /**
  * サーバーのポート番号を設定
@@ -67,7 +61,7 @@ app.register(tldrawRoutes, { prefix: '/api/tldraw' })
 app.all('/*', async (req, reply) => {
   try {
     await handle(req.raw, reply.raw)
-    reply.sent = true
+    reply.raw.end() 
   } catch (err) {
     app.log.error(err)
     reply.status(500).send('Internal Server Error')
@@ -75,15 +69,15 @@ app.all('/*', async (req, reply) => {
 })
 
 // Next.jsの静的ファイルやクライアントコードのルーティング
-app.all('/_next/*', async (req, reply) => {
-  try {
-    await handle(req.raw, reply.raw)
-    reply.sent = true
-  } catch (err) {
-    app.log.error(err)
-    reply.status(500).send('Internal Server Error')
-  }
-})
+// app.all('/_next/*', async (req, reply) => {
+//   try {
+//     await handle(req.raw, reply.raw)
+//     reply.sent = true
+//   } catch (err) {
+//     app.log.error(err)
+//     reply.status(500).send('Internal Server Error')
+//   }
+// })
 
 /**
  * Next.jsの準備が整ったらデータベース接続を行い、サーバーを起動

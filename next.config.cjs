@@ -1,3 +1,5 @@
+import whiteboardConfig from 'config'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	experimental: {
@@ -11,6 +13,10 @@ const nextConfig = {
 			'ws': 'commonjs ws'
 		});
 		return config;
+	},
+	env: {
+		NEXT_PUBLIC_SERVER_URL : "http://" + whiteboardConfig.get<string>('host') + ":" + whiteboardConfig.get<number>('port'),
+		NEXT_PUBLIC_DRAWIO_URL : whiteboardConfig.get<string>('drawio_url')
 	}
 }
 

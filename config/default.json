@@ -1,13 +1,10 @@
 {
     "port": 3001,
-    "host": "localhost",
     "pg_host": "localhost",
     "pg_port": 5432,
     "pg_user": "postgres",
     "pg_password": "mysecretpassword",
     "pg_database": "postgres",
-    "typeorm_synchronize": false,
-    "drawio_url": "https://embed.diagrams.net",
-    "node_env": "development"
+    "typeorm_synchronize": false
   }
   
